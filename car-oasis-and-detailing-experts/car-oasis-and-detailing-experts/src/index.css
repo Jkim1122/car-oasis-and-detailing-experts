@@ -1,5 +1,5 @@
 :root {
-  background-image: url('https://lh3.googleusercontent.com/0oeswMpDnmdW1109Z6OU6GVmeiUDLUDPo6hdZK-Bh-OOYMDtN_FZ4qL-r6L7_bhpjB6t5GdoCbNDXbmJ3cbn6w11-iYji0ZNFhKkH1nBbZS-MOX9AwyM8Gs9AzHFpleK1B22AUdd');
+  /* background-image: url(''); */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -84,6 +84,12 @@ button:focus-visible {
 }
 .signup, .login {
 
+  display:flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items:flex-start;
+}
+.enterVin {
   display:flex;
   flex-direction: column;
   /* justify-content: space-around; */

@@ -7,6 +7,7 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_2
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
+from django.http import HttpResponse
 # Create your views here.
 class Sign_up(APIView):
     def post(self, request):
@@ -46,3 +47,6 @@ class Log_out(UserPermissions):
     def post(self, request):
         request.user.auth_token.delete() #token class, related name
         return Response(status=HTTP_204_NO_CONTENT)
+
+def index(request):
+    return HttpResponse(open('static/index.html'))
