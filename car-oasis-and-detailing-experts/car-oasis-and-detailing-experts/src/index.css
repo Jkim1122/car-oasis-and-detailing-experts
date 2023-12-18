@@ -112,3 +112,17 @@ button:focus-visible {
 .navLogo {
   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5nomFoIWIhhf7Ksad0kP6s_h8j6FJqjJc9w&usqp=CAU');
 }
+.vehicle-card, .detailing-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 264px;
+  height: 400px;
+}
+.vehicle-card img {
+  width: 330px;
+  height: 180px;
+}

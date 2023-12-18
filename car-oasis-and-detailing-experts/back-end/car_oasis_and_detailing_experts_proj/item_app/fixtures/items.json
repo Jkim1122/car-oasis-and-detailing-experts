@@ -1,0 +1,42 @@
+[
+    {
+      "model": "item_app.item",
+      "pk": 1,
+      "fields": {
+        "name": "Parking Space",
+        "price": 250,
+        "description":"Where your vehicle will be stored, 250 per month",
+        "category": "storage"
+      }
+    },
+    {
+      "model": "item_app.item",
+      "pk": 2,
+      "fields": {
+        "name": "Basic Package",
+        "price": 50,
+        "description":"Our most affordable package, gets the car clean inside and out",
+        "category": "detailingPackage"
+      }
+    },
+    {
+      "model": "item_app.item",
+      "pk": 3,
+      "fields": {
+        "name": "Deluxe Package",
+        "price": 80,
+        "description":"Our most popular package, 'Basic Package' + removes impurities from paint/interior, wax/sealant finish",
+        "category": "detailingPackage"
+      }
+    },
+    {
+      "model": "item_app.item",
+      "pk": 4,
+      "fields": {
+        "name": "Ultimate Package",
+        "price": 130,
+        "description":"Our most inclusive package, 'Deluxe Package' + going above and beyond, extending the life of your paint and interior",
+        "category": "detailingPackage"
+      }
+    }
+]

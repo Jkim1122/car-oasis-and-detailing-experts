@@ -5,19 +5,21 @@ import { api } from "../src/utilities";
 import { useNavigate, useOutletContext } from "react-router-dom"
 import axios from 'axios';
 import Card from 'react-bootstrap/Card'
+import VehicleCard from '../components/VehicleCard';
 
 const UserPage = () => {
     const [isFormOpen, setIsFormOpen] = useState(false)
+    const [vin, setVin] = useState('')                  //maybe change request parameters to YearMakeModel
     const [year, setYear] = useState('')
     const [make, setMake] = useState('')
     const [model, setModel] = useState('')
-    const [vin, setVin] = useState('')                  //maybe change request parameters to YearMakeModel
     const [vehicleImage, setVehicleImage] = useState("")
 
-    const navigate = useNavigate()
-
     const {client, setClient} = useOutletContext()
-    const {vehicles, setVehicles} = useOutletContext()
+    const {vehicles, setVehicles} = useOutletContext() //favorites
+    
+    const navigate = useNavigate()
+    console.log(vehicles)
 
     const baseURL = "http://api.carmd.com/v3.0";
     const authKey = 'Basic MmIxZmVjOTUtNDU5MS00MGFhLWE1ODAtNzE4NGQxNWExMTgx';
@@ -32,43 +34,64 @@ const UserPage = () => {
     const getCarImage = async (vin) => {
         try {
             const response = await axios
-                .get(`${baseURL}/image?vin=${vin}`, {headers});
-            console.log(response.data.data.image);
-            if (response.data.data.image == null) {
-                console.log("image doesn't exist")
+                .get(`${baseURL}/image?vin=${vin}`, {headers})
+            // console.log(response.data.data.image)
+            if (response.data.data.image == null){
+                console.log(response.data.data.image)
             } else {
-                console.log(response.data.data.image);
                 setVehicleImage(response.data.data.image)
-                console.log(vehicleImage)
-                return JSON.stringify(response.data.data.image)
+                return response.data.data.image
             }
         }
-        catch (error) {
-            console.error('Error making CarMD API request:', error);
-        }
+        catch (error) {console.error('Error making CarMD API request:', error)}
     }
     
     const toggleForm = () => {
         setIsFormOpen(!isFormOpen);
+        console.log(isFormOpen)
       };
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        let response = await getCarImage(vin)
+        let vehicleImage = await getCarImage(vin)
+        const response_1 = await api.get("users/")
+        const response_2 = await api.post("vehicles/add_vehicle/", {
+            vin:vin,
+            year:year,
+            make:make,
+            model:model,
+            image_url:vehicleImage,
+            client_id:response_1.data.id
+        })
+        console.log(response_2)
+        toggleForm()
         navigate("/user")
     };
+
+    const getAllCars = async() => {
+        let resp = await api.get("users/")
+        // console.log(resp.data.id)
+        let response = await api.get(`vehicles/${resp.data.id}/`)
+        // console.log(response)
+        setVehicles(response.data)
+    }
+ 
+    useEffect(() => {
+        getAllCars()
+        console.log(vehicles)
+    }, [])
 
     return (
         <>
             <h1>User Page</h1>
-            <h1>{client}</h1>
+            {/* <h1>{client}</h1> */}
             <button
             onClick={toggleForm}
             >Add Vehicle</button>
 
-            <h3>Vehicles:{vehicles.length}</h3>
+            <h3>current vehicles:{vehicles.length}</h3>
 
-            {isFormOpen && (
+            {isFormOpen ?(
                 <Form className='enterVin' onSubmit={handleSubmit}>
                 <Form.Label>Enter vehicle VIN:</Form.Label>
                 <Form.Control type="text" placeholder="ie. 5YM13EC09R9T58718" onChange={(e) => setVin(e.target.value)}/>
@@ -78,29 +101,24 @@ const UserPage = () => {
                 <Form.Control type="text" placeholder="Enter make   (ie.Toyota)" onChange={(e) => setMake(e.target.value)}/>
                 <Form.Label>Model:</Form.Label>
                 <Form.Control type="text" placeholder="Enter mdoel  (ie.Tundra)" onChange={(e) => setModel(e.target.value)}/>
-                {/* <Form.Label>Color:</Form.Label>
-                <Form.Control type="text" placeholder="Enter color  (ie.white)" onChange={(e) => setColor(e.target.value)}/> */}
                 <Button type="submit">Submit</Button>
                 </Form>
-            )
+            ):(null)
             }
 
-            {vehicleImage ? (
-                <>
-                    <h5>Current Vehicles</h5>
-                    <ul>
-                        <Card style={{ width: '18rem' }} >
-                        
-                        <Card.Img variant="top" src={vehicleImage} />
-                        {/* <Card.Img variant="top" src="http://downloads.innova.com/polk-vehicle-images/TUNDRA07.jpg" /> */}
-                        <Card.Body>
-                            <Card.Title>{year} {make} {model}</Card.Title>
-                            <Button variant="primary">Book Parking Space</Button>
-                            {/* <Button onClick={deleteimage} variant="danger">Remove</Button> */}
-                        </Card.Body>
-                        </Card>
-                    </ul>
-                </>
+            {vehicles.length > 0? 
+            // console.log(vehicles)
+                vehicles.map((car) => (
+                    <VehicleCard
+                    vin={car['vin']}
+                    year={car['year']}
+                    make={car['make']}
+                    model={car['model']}
+                    vehicleImage={car['image_url']}
+                    vehicles = {vehicles}
+                    />
+                    
+                )
             )
                 :
                 null

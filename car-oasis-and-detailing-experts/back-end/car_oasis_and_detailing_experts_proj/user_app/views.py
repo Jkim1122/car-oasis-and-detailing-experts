@@ -8,6 +8,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 from django.http import HttpResponse
+from cart_app.models import Cart
 # Create your views here.
 class Sign_up(APIView):
     def post(self, request):
@@ -15,6 +16,8 @@ class Sign_up(APIView):
             data = request.data.copy()
             data['username'] = request.data['email']
             new_user = Client.objects.create_user(**data)
+            
+            cart = Cart.objects.create(client=new_user)
             new_token = Token.objects.create(user = new_user)
             return Response({"client":new_user.email, "token": new_token.key}, status=HTTP_201_CREATED)
         except Exception as e:
@@ -26,6 +29,7 @@ class Log_in(APIView):
         try:
             email = request.data['email']
             password = request.data['password']
+
             user = authenticate(username=email, password=password)
             if user:
                 token, created = Token.objects.get_or_create(user = user)
@@ -48,5 +52,5 @@ class Log_out(UserPermissions):
         request.user.auth_token.delete() #token class, related name
         return Response(status=HTTP_204_NO_CONTENT)
 
-def index(request):
-    return HttpResponse(open('static/index.html'))
+# def index(request):
+#     return HttpResponse(open('static/index.html'))

@@ -8,6 +8,7 @@ import BookingPage from '../pages/BookingPage'
 import DetailingPackagesPage from '../pages/DetailingPackagesPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import ContactPage from '../pages/ContactPage';
+import CartPage from '../pages/Cart'
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path:'detailingpackages/',
                 element: <DetailingPackagesPage/>
+            },
+            {
+                path:"cart/",
+                element: <CartPage/>
             },
             {
                 path:'about/',

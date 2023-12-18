@@ -11,7 +11,7 @@ import { api } from "../src/utilities";
 
 export default function Navbar({client, setClient}) {
 // export default function Navbar({name, pokemon, favorites}) {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     // const [search, setSearch] = useState('');
     // const [id, setId] = useState('');
     const handleLogOut = async() => {
@@ -22,29 +22,38 @@ export default function Navbar({client, setClient}) {
         localStorage.removeItem("token")
         localStorage.removeItem("email")
         delete api.defaults.headers.common["Authorization"]
+        navigate("/signup")
       } 
     }
 
   return (
-    <nav className="Navbar">
+    <>
+      <nav className="Navbar">
         <div className="navLogo">
-        <h2>C.O.D.E.</h2>
-        <h3>Car Oasis & Detailing Experts</h3>
+          <h2>C.O.D.E.</h2>
+          <h3>Car Oasis & Detailing Experts</h3>
         </div>
+        <div>
+
         <div className="navLinks">
             <Link to="/" > Home </Link>||
-            <Link to="/signup" >Sign Up & Log In </Link>||
             <Link to="/booking" > Booking </Link>||
             <Link to="/detailingpackages" > Detailing Packages </Link>||
             <Link to="/user" > User Page </Link>||
-            <Link to="/about" > About </Link> ||
-            <Link to="/contact"> Contact Us</Link>
+            <Link to="/cart"> Cart </Link>||
+            <Link to="/signup" >Sign Up & Log In </Link>
             {client?
-              <button onClick={handleLogOut}>Log Out</button>
-              :
-              null
-            }
+            <button onClick={handleLogOut}>Log Out</button>
+            :
+            null
+          }
         </div>
-    </nav>
+        <div className="navLinks">
+            <Link to="/contact"> Contact Us</Link>||
+            <Link to="/about" > About </Link> ||
+        </div>
+          </div>
+      </nav>
+            </>
   );
 }

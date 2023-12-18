@@ -24,8 +24,8 @@ const SignUpPage = () => {
             .catch(err => console.log(`signup err ${err}`))
         const clientEmail = response.data.client //email
         const token = response.data.token
-
-        console.log(`signup success, email: ${clientEmail}, token: ${token}`)
+        alert("sign up success")
+        console.log(`Sign up success, email: ${clientEmail}, token: ${token}`)
 
         api.defaults.headers.common["Authorization"] = `Token ${token}`
         localStorage.setItem("token", token);
@@ -38,14 +38,15 @@ const SignUpPage = () => {
 //login
     const handleLogIn = async(e) => {
         e.preventDefault()
-        console.log(email, password)
+        console.log(`email:${email}, password: ${password}`)
         let response = await api.post("users/login/", {
             email: email,
             password: password,
           });
         //   console.log(response)
           if (response.status === 200) {
-            setClient(response.data.client);
+            setClient(response.data);
+            alert("login success")
             localStorage.setItem("token", response.data.token);
             api.defaults.headers.common[
               "Authorization"
@@ -62,24 +63,24 @@ const SignUpPage = () => {
             <div className='signuplogin'>
                 <Form className='signup' onSubmit={handleSignUp}>
                     <h3>Sign Up</h3>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" >
                         <Form.Label>Email address: </Form.Label>
                         <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicFullName">
+                    <Form.Group className="mb-3" >
                         <Form.Label>Full name: </Form.Label>
                         <Form.Control type='text' placeholder='ie. John Smith' onChange={(e) => setFull_name(e.target.value)}/>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Group className="mb-3" >
                         <Form.Label>Password: </Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+                        <Form.Control className="form-control" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicNumber">
+                    <Form.Group className="mb-3" >
                         <Form.Label>Number: </Form.Label>
                         <Form.Control type='text' placeholder='ie. (123) 456-7890'onChange={(e) => setNumber(e.target.value)}/>
                     </Form.Group>
@@ -89,16 +90,16 @@ const SignUpPage = () => {
                 <h2>Already have an account? </h2>
                 <Form className='login' onSubmit={handleLogIn}>
                         <h3>Log In</h3>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" >
                         <Form.Label>Email address: </Form.Label>
                         <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)}/>
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Group className="mb-3" >
                         <Form.Label>Password: </Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+                        <Form.Control className="form-control" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                     </Form.Group>
                     <Button variant="primary" type="submit"> Log In </Button>
                 </Form>

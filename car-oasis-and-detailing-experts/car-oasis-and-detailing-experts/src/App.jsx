@@ -8,12 +8,13 @@ import Navbar from '../components/Navbar'
 function App() {
   const [client, setClient] = useState(null)
   const [vehicles, setVehicles] = useState([])
+  
   const getInfo = async() => {
     let token = localStorage.getItem("token")
     if (token){
       api.defaults.headers.common["Authorization"] = `Token ${token}`
       let response = await api.get("users/")
-      setClient(response.data.user)
+      setClient(response.data)
     } 
   }
   useEffect(()=>{
