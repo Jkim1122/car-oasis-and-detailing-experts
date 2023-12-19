@@ -4,7 +4,7 @@ from .models import Vehicle
 class VehicleSerializer(ModelSerializer):
     class Meta:
         model = Vehicle
-        fields = ['vin', 'year', 'make', 'model', 'image_url', 'client_id']
+        fields = ['id', 'vin', 'year', 'make', 'model', 'image_url', 'client_id']
         
     def get_total_vehicles(self, obj):
         vehicle_list = Vehicle.objects.all()

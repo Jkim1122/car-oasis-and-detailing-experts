@@ -19,7 +19,7 @@ const UserPage = () => {
     const {vehicles, setVehicles} = useOutletContext() //favorites
     
     const navigate = useNavigate()
-    console.log(vehicles)
+    // console.log(vehicles)
 
     const baseURL = "http://api.carmd.com/v3.0";
     const authKey = 'Basic MmIxZmVjOTUtNDU5MS00MGFhLWE1ODAtNzE4NGQxNWExMTgx';
@@ -78,8 +78,8 @@ const UserPage = () => {
  
     useEffect(() => {
         getAllCars()
-        console.log(vehicles)
-    }, [])
+        // console.log(vehicles)
+    }, [vehicles])
 
     return (
         <>

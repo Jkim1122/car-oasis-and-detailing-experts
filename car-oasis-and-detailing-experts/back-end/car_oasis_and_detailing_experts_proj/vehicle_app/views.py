@@ -16,7 +16,6 @@ class All_vehicles(APIView):
             serialized_list.append(VehicleSerializer(item).data)
         # print(serialized_list)
         return Response(serialized_list)
-    
 
 class Vehicle_manager(APIView):
     def post(self, request):
@@ -26,7 +25,8 @@ class Vehicle_manager(APIView):
         # year = request.data['vin']
         # vin = request.data['vin']
         # vin = request.data['vin']
-        vehicle = Vehicle.objects.create(vin=request.data['vin'],
+        vehicle = Vehicle.objects.create(
+                                         vin=request.data['vin'],
                                          year=request.data['year'],
                                          make=request.data['make'],
                                          model=request.data['model'],
@@ -34,14 +34,17 @@ class Vehicle_manager(APIView):
                                          client_id=request.data['client_id'])
         return Response('vehicle added', status=HTTP_201_CREATED)
     
+    
 class Delete_vehicle(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def delete(self, request, vehicle_id):
-        # try:
-        vehicle = Vehicle.objects.get(pk=vehicle_id)
-        print(vehicle)
-        #     return Response({"message": "Vehicle was removed from client's vehicle list"} status=HTTP_204_NO_CONTENT)
-        # except Vehicle.DoesNotExist:
-        #     return Response({"error": f"Vehicle with vin {request.vin} not found"}, status=HTTP_404_NOT_FOUND)
+    def delete(self, request, id):
+        try:
+            vehicle = Vehicle.objects.get(pk=id)
+            # vehicle = get_object_or_404(Vehicle, pk=id)
+            print(vehicle)
+            vehicle.delete()
+            return Response({"message": "Vehicle was removed from client's vehicle list"}, status=HTTP_204_NO_CONTENT)
+        except Vehicle.DoesNotExist:
+            return Response({"error": f"Vehicle with vin {request.vin} not found"}, status=HTTP_404_NOT_FOUND)
