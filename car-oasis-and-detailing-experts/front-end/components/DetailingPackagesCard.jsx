@@ -20,32 +20,6 @@ const DetailingPackageCard = ({ id, name, price, description, icon_id }) => {
     getPackageImage();
     }, []);
 
-    // const handleClick = async(e) => {
-    //     e.preventDefault();
-    //     try {
-    //         // console.log(detailingPackages.filter((pack)))
-    //         const resp = await api.get('cart/');
-    //         const cart = resp.data;
-    //         console.log(cart)
-    //         const cart_item = detailingPackages.find((pack) => pack.id === cart.id)
-    //         console.log(`cart_item(output): ${cart_item}`)
-    //         console.log(cart_item)
-    //         console.log(`cart_item.id(output): ${cart_item.id}`)
-    //         if (!cart_item) {
-    //             console.error('Package/item ID not found.');
-    //             return;
-    //         }
-    //         // Make the API request to add the package to the client's cart
-    //         const addToCart = await api.post(`cart/`, {
-    //             item_id: cart_item.id,
-    //         });
-    //         console.log(addToCart.data); // You can handle the response as needed
-    //         // Redirect to the booking page
-    //         navigate('/booking');
-    //     } catch (error) {
-    //         console.error('Error adding detailing package to cart:', error);
-    //     }
-    //   }
     const addToCart = async (itemId) => {
         try {
         const cart = await api.get('cart/'); //get cart
@@ -71,6 +45,18 @@ const DetailingPackageCard = ({ id, name, price, description, icon_id }) => {
         }
     };
 
+    // const deleteCartItem = async (cartItemId) => {
+    //   try {
+    //     // Make the API request to delete the item from the cart
+    //     const deleteResponse = await api.delete(`cart/${cartItemId}/`);
+    //     console.log(deleteResponse.data); // Handle the response as needed
+  
+    //     // Remove the item from cartItems state
+    //     setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== cartItemId));
+    //   } catch (error) {
+    //     console.error('Error deleting item from cart:', error);
+    //   }
+    // };
   return (
     <>
     <div className='detailing-packages'>
