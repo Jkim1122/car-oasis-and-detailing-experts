@@ -7,6 +7,8 @@ from .serializers import Item, ItemSerializer
 from cart_app.serializers import Cart_item
 from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 # Create your views here.
+import requests
+from requests_oauthlib import OAuth1
 
 class All_items(APIView):
     def get(self, request):
@@ -55,6 +57,17 @@ class An_item(APIView):
 class Item_by_category(APIView):
     def get(self, request, category):
         items = ItemSerializer(Item.objects.filter(category__iexact=category), many=True)
-        '''Exact Match: The exact part means that the match is exact, and the provided value must be matched precisely.
-        Case-Insensitive: The i part means that the match is case-insensitive, so it doesn't matter whether the letters are uppercase or lowercase.'''
+        print(items)
         return Response(items.data)
+    
+class Icons(APIView):
+    def get(self, request, icon_id):
+        key = '803a54e0b3814d11960eeeb704fa8b94';
+        secret_key = '6d7239e298284dc0a0ca921d25e2cb98';
+        
+        auth = OAuth1(key, secret_key)
+        endpoint = f'https://api.thenounproject.com/v2/icon/{icon_id}'
+
+        response = requests.get(endpoint, auth=auth)
+        print(response.content)
+        return Response(response.json())

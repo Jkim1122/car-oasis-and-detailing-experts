@@ -126,3 +126,9 @@ button:focus-visible {
   width: 330px;
   height: 180px;
 }
+
+.detailing-packages {
+  display: flex;
+  flex-direction: row;
+  
+}

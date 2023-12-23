@@ -6,7 +6,8 @@
         "name": "Parking Space",
         "price": 250,
         "description":"Where your vehicle will be stored, 250 per month",
-        "category": "storage"
+        "category": "storage",
+        "icon_id":3552463
       }
     },
     {
@@ -16,7 +17,8 @@
         "name": "Basic Package",
         "price": 50,
         "description":"Our most affordable package, gets the car clean inside and out",
-        "category": "detailingPackage"
+        "category": "detailingPackage",
+        "icon_id":2797217
       }
     },
     {
@@ -26,7 +28,8 @@
         "name": "Deluxe Package",
         "price": 80,
         "description":"Our most popular package, 'Basic Package' + removes impurities from paint/interior, wax/sealant finish",
-        "category": "detailingPackage"
+        "category": "detailingPackage",
+        "icon_id":5223223
       }
     },
     {
@@ -36,7 +39,8 @@
         "name": "Ultimate Package",
         "price": 130,
         "description":"Our most inclusive package, 'Deluxe Package' + going above and beyond, extending the life of your paint and interior",
-        "category": "detailingPackage"
+        "category": "detailingPackage",
+        "icon_id":5489288
       }
     }
 ]

@@ -60,7 +60,7 @@ function VehicleCard({vin, year, make, model, vehicleImage}) {
               <p> Dates reserved: </p> */}
               <p> VIN: {vin}</p>
             </div>
-          <Button onClick={() => navigate('/booking')} variant="primary">Book Parking Space</Button>
+          <Button onClick={() => navigate('/detailingPackages')} variant="primary">Book Parking Space</Button>
           <Button onClick={removeVehicle} variant="danger">Remove Vehicle</Button>
           </Card.Body>
         </Card>

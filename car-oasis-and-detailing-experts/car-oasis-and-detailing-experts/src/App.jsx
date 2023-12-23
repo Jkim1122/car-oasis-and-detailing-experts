@@ -8,7 +8,9 @@ import Navbar from '../components/Navbar'
 function App() {
   const [client, setClient] = useState(null)
   const [vehicles, setVehicles] = useState([])
-  
+  const [detailingPackages, setDetailingPackages] = useState([])
+  const [cartItems, setCartItems] = useState([])
+
   const getInfo = async() => {
     let token = localStorage.getItem("token")
     if (token){
@@ -17,8 +19,17 @@ function App() {
       setClient(response.data)
     } 
   }
+
+const getDetailingPackages = async() => {
+  let resp = await api.get("items/category/detailingPackage/")
+  // console.log(resp.data)
+  setDetailingPackages(resp.data)
+  console.log(detailingPackages)
+}
+
   useEffect(()=>{
     getInfo()
+    getDetailingPackages()
   },[])
 
   return (
@@ -27,7 +38,7 @@ function App() {
         <div>
           <Navbar client={client} setClient={setClient}/>
         </div>
-        <Outlet context={{client, setClient, vehicles, setVehicles}}/>
+        <Outlet context={{client, setClient, vehicles, setVehicles, detailingPackages, setDetailingPackages, cartItems, setCartItems}}/>
       </Container>
     </>
   )

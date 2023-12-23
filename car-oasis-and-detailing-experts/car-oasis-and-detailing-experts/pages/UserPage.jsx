@@ -108,8 +108,9 @@ const UserPage = () => {
 
             {vehicles.length > 0? 
             // console.log(vehicles)
-                vehicles.map((car) => (
+                vehicles.map((car, idx) => (
                     <VehicleCard
+                    key={idx}
                     vin={car['vin']}
                     year={car['year']}
                     make={car['make']}

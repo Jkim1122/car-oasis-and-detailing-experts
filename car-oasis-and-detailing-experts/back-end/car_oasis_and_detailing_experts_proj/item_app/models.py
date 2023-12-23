@@ -6,3 +6,4 @@ class Item(models.Model):
     price = models.IntegerField()
     description = models.CharField()
     category = models.CharField()
+    icon_id = models.IntegerField()
