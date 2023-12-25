@@ -7,13 +7,14 @@ import { api } from '../src/utilities';
 const DetailingPackageCard = ({ id, name, price, description, icon_id }) => {
   const navigate = useNavigate();
   const [packageImage, setPackageImage] = useState('');
-  const {detailingPackages, setDetailingPackages, cartItems, setCartItems, vehicles, setVehicles} = useOutletContext()
+  const {detailingPackages, setDetailingPackages, cartItems, setCartItems, cart, setCart} = useOutletContext()
 
     const getPackageImage = async () => {
         // console.log(icon_id)
         const response = await api.get(`items/icons/${icon_id}/`)
         // console.log(response.data.icon.thumbnail_url)
         setPackageImage(response.data.icon.thumbnail_url)
+        // console.log(packageImage)    //returns nothing
     };
 
     useEffect(() => {
@@ -24,18 +25,20 @@ const DetailingPackageCard = ({ id, name, price, description, icon_id }) => {
         try {
         const cart = await api.get('cart/'); //get cart
         const cartId = cart.data.id;
-            console.log(cart)
+            console.log(`cart: ${cart}`)
         const selectedPackage = detailingPackages.find((pack) => pack.name === name)
-            console.log(selectedPackage)
+            console.log(`selectedPackage: ${selectedPackage}`)
         if (!selectedPackage) {
             console.error('Selected package not found.');
             return;
         }
         // Make the API request to add the package to the client's cart
-        const addToCartResponse = await api.post(`cart/${selectedPackage.id}/`, {
+        const updatedCart = await api.post(`cart/${selectedPackage.id}/`, {
             item_id: selectedPackage.id,
         });
-        console.log(addToCartResponse.data)
+        console.log(updatedCart.data)
+        setCart(updatedCart.data)
+        console.log(cart)
         // Update cartItems with the added package
         setCartItems((cartItems) => [...cartItems, selectedPackage]);
         // Redirect to the booking page
@@ -45,18 +48,6 @@ const DetailingPackageCard = ({ id, name, price, description, icon_id }) => {
         }
     };
 
-    // const deleteCartItem = async (cartItemId) => {
-    //   try {
-    //     // Make the API request to delete the item from the cart
-    //     const deleteResponse = await api.delete(`cart/${cartItemId}/`);
-    //     console.log(deleteResponse.data); // Handle the response as needed
-  
-    //     // Remove the item from cartItems state
-    //     setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== cartItemId));
-    //   } catch (error) {
-    //     console.error('Error deleting item from cart:', error);
-    //   }
-    // };
   return (
     <>
     <div className='detailing-packages'>
@@ -66,7 +57,8 @@ const DetailingPackageCard = ({ id, name, price, description, icon_id }) => {
         <Card.Body>
             <p>{description}</p>
           <ul>
-            <li>${price}.00</li>
+            <p>starting at</p>
+            <h4>${price}.00</h4>
           </ul>
           <Button onClick={() => addToCart(id)} variant="primary">Continue booking</Button>
         </Card.Body>

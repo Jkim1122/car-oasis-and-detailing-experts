@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
 import { api } from '../src/utilities';
+import DetailingPackagesPage from './DetailingPackagesPage';
 
 const CartPage = () => {
-  const { cartItems, setCartItems } = useOutletContext();
+  const { cartItems, setCartItems, cart, setCart } = useOutletContext();
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         const response = await api.get('cart/');
         const cartData = response.data;
+        console.log(cartData)
+        setCart(cartData)
         setCartItems(cartData.cart_items);
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -18,20 +21,21 @@ const CartPage = () => {
     };
 
     fetchCartItems();
-  }, [setCartItems]);
+  }, [cartItems]);
 
-const updateCartItemQuantity = async (method, newQuantity, cartItemId) => {
+  const updateCartItemQuantity = async (method, newQuantity, cartItemId) => {
     try {
       // Make the API request to update the item quantity in the cart
       const response = await api.put(`cart/${method}/cart_item/${cartItemId}/`, {
         quantity: newQuantity,
       });
-
+        console.log(response.data)
       // Update the item in cartItems state
-      console.log(cartItems)
-      setCartItems((cartItems) =>
-        cartItems.map((item) =>
-          item.id === cartItemId ? { ...item, quantity: response.data.quantity } : item
+        setCartItems((cartItems) =>
+        cartItems.map((cart) =>
+          cart.id === cartItemId?
+            { ...cart, quantity: response.data.quantity }
+            : cart
         )
       );
     } catch (error) {
@@ -46,46 +50,50 @@ const updateCartItemQuantity = async (method, newQuantity, cartItemId) => {
       await api.delete(`cart/delete/${cartItemId}/`);
 
       // Remove the item from cartItems state
-      setCartItems((cartItems) => cartItems.filter((item) => item.id !== cartItemId));
+      console.log(cartItems)
+      setCartItems((cartItems) => cartItems.filter((cart) => cart.item.id !== cartItemId));
+      console.log(cartItems)
     } catch (error) {
       console.error('Error deleting item from cart:', error);
     }
   };
-
+console.log(cart)
   return (
     <>
       <h1>Cart Page</h1>
       {cartItems.length > 0 ? (
-        <div>
-          {cartItems.map((item) => (
-            <Card key={item.id} style={{ marginBottom: '20px' }}>
+        <div className='cart-contents'>                                   
+          {cartItems.map((cart) => (
+            <Card key={cart.item.id} style={{ marginBottom: '20px' }}>
               <Card.Body>
-                <h3>{item.name}</h3>
-                <p>Price: ${item.price}.00</p>
+                <h3>name: {cart.item.name}</h3>
+                <h3>cart_item id: {cart.item.id}</h3>
+                <p>Price: ${cart.item.price}.00</p>
                 <div>
                   <Button
                     variant="outline-secondary"
-                    onClick={() => updateCartItemQuantity('sub', item.quantity - 1, item.id)}>
+                    onClick={() => updateCartItemQuantity('sub', cart.quantity - 1, cart.id)}>
                 -
                   </Button>
-                  <span style={{ margin: '0 10px' }}>{item.quantity}</span>
+                  <span style={{ margin: '0 10px' }}>{cart.quantity}</span>
                   <Button
                     variant="outline-secondary"
-                    onClick={() => updateCartItemQuantity("add", item.quantity + 1, item.id)}>
+                    onClick={() => updateCartItemQuantity("add", cart.quantity + 1, cart.id)}>
                 +
                   </Button>
                 </div>
-                <Button variant="danger" onClick={() => deleteCartItem(item.id)}>
+                <Button variant="danger" onClick={() => deleteCartItem(cart.id)}>
                   Remove from Cart
                 </Button>
               </Card.Body>
             </Card>
           ))}
+          <h3>Total:    ${cart.total_price}.00</h3>
           {/* Add a checkout button or additional details as needed */}
         </div>
       ) : (
-        <p>Your cart is empty.</p>
-      )}
+          <p>Your cart is empty.</p>
+          )}
     </>
   );
 };

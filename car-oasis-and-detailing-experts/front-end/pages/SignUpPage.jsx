@@ -38,7 +38,7 @@ const SignUpPage = () => {
 //login
     const handleLogIn = async(e) => {
         e.preventDefault()
-        console.log(`email:${email}, password: ${password}`)
+        // console.log(`email:${email}, password: ${password}`)
         let response = await api.post("users/login/", {
             email: email,
             password: password,

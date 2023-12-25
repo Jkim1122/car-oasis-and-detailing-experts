@@ -1,5 +1,5 @@
 :root {
-  /* background-image: url(''); */
+  background-image: url('https://lh3.googleusercontent.com/0oeswMpDnmdW1109Z6OU6GVmeiUDLUDPo6hdZK-Bh-OOYMDtN_FZ4qL-r6L7_bhpjB6t5GdoCbNDXbmJ3cbn6w11-iYji0ZNFhKkH1nBbZS-MOX9AwyM8Gs9AzHFpleK1B22AUdd');
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -27,7 +27,7 @@ a:hover {
 
 body {
   background-color: #161c2089;
-
+  /* background-image: url('https://lh3.googleusercontent.com/0oeswMpDnmdW1109Z6OU6GVmeiUDLUDPo6hdZK-Bh-OOYMDtN_FZ4qL-r6L7_bhpjB6t5GdoCbNDXbmJ3cbn6w11-iYji0ZNFhKkH1nBbZS-MOX9AwyM8Gs9AzHFpleK1B22AUdd'); */
   margin: 0;
   display: flex;
   place-items: center;
@@ -42,7 +42,7 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 3px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -80,7 +80,7 @@ button:focus-visible {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  
+  border-radius: 20px;
 }
 .signup, .login {
 
@@ -95,40 +95,83 @@ button:focus-visible {
   /* justify-content: space-around; */
   align-items:flex-start;
 }
+
 .Navbar {
-  background-color: #161c2089;
+  background-color: #161c20ce;
   display:flex;
   align-items: center;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border: 1px solid black;
-  /* border-radius: 80px; */
-  width: 1100px;
+  width: 100vmin;
   height: 135px;
+
 }
-.navLinks {
+
+.navLinks, .detailing-packages {
   display:flex;
   flex-direction: row;
 }
+
 .navLogo {
   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5nomFoIWIhhf7Ksad0kP6s_h8j6FJqjJc9w&usqp=CAU');
 }
-.vehicle-card, .detailing-card {
+
+.vehicle-card {
   display: flex;
+  background-color: #161c20ce;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   border: 1px solid black;
-  border-radius: 8px;
+  border-radius: 20px;
   width: 264px;
   height: 400px;
 }
+
 .vehicle-card img {
   width: 330px;
   height: 180px;
+  border-radius: 15px;
+}
+
+.detailing-package-card {
+  display: flex;
+  background-color: #1f6595e8;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 300px;
+  height: 600px;
 }
 
 .detailing-packages {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+.booking-card, .contact-card, .ol,.cart-contents {
+  background-color: #161c20ce;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
   
+}
+
+.headers, .page-body {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.users-body {
+  border-radius: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  align-items: center;
 }

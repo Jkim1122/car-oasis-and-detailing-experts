@@ -10,6 +10,9 @@ function App() {
   const [vehicles, setVehicles] = useState([])
   const [detailingPackages, setDetailingPackages] = useState([])
   const [cartItems, setCartItems] = useState([])
+  const [cart, setCart] = useState([])
+  const [parkingSpace, setParkingSpace] = useState('')
+  
 
   const getInfo = async() => {
     let token = localStorage.getItem("token")
@@ -19,17 +22,31 @@ function App() {
       setClient(response.data)
     } 
   }
-
+  const getParkingSpaces = async() => {
+    let token = localStorage.getItem("token")
+    if (token){
+     try {
+      api.defaults.headers.common["Authorization"] = `Token ${token}`
+      let response = await api.get("parking_spaces/")
+      console.log(response)
+      setParkingSpace(response.data)
+      console.log(parkingSpace)
+      }
+    catch {
+      console.log("couldn't retrieve parking space")
+      }
+    }
+  }
 const getDetailingPackages = async() => {
   let resp = await api.get("items/category/detailingPackage/")
   // console.log(resp.data)
   setDetailingPackages(resp.data)
-  console.log(detailingPackages)
 }
 
   useEffect(()=>{
     getInfo()
     getDetailingPackages()
+    getParkingSpaces()
   },[])
 
   return (
@@ -38,7 +55,7 @@ const getDetailingPackages = async() => {
         <div>
           <Navbar client={client} setClient={setClient}/>
         </div>
-        <Outlet context={{client, setClient, vehicles, setVehicles, detailingPackages, setDetailingPackages, cartItems, setCartItems}}/>
+        <Outlet context={{client, setClient, vehicles, setVehicles, detailingPackages, setDetailingPackages, cartItems, setCartItems, cart, setCart, parkingSpace, setParkingSpace}}/>
       </Container>
     </>
   )

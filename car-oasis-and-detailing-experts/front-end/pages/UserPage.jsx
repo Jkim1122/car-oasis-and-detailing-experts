@@ -13,8 +13,8 @@ const UserPage = () => {
     const [year, setYear] = useState('')
     const [make, setMake] = useState('')
     const [model, setModel] = useState('')
-    const [vehicleImage, setVehicleImage] = useState("")
-
+    const [vehicleImage, setVehicleImage] = useState('')
+    
     const {client, setClient} = useOutletContext()
     const {vehicles, setVehicles} = useOutletContext() //favorites
     
@@ -93,15 +93,15 @@ const UserPage = () => {
 
             {isFormOpen ?(
                 <Form className='enterVin' onSubmit={handleSubmit}>
-                <Form.Label>Enter vehicle VIN:</Form.Label>
-                <Form.Control type="text" placeholder="ie. 5YM13EC09R9T58718" onChange={(e) => setVin(e.target.value)}/>
-                <Form.Label>Year:</Form.Label>
-                <Form.Control type="text" placeholder="Enter year   (ie.1995)" onChange={(e) => setYear(e.target.value)}/>
-                <Form.Label>Make:</Form.Label>
-                <Form.Control type="text" placeholder="Enter make   (ie.Toyota)" onChange={(e) => setMake(e.target.value)}/>
-                <Form.Label>Model:</Form.Label>
-                <Form.Control type="text" placeholder="Enter mdoel  (ie.Tundra)" onChange={(e) => setModel(e.target.value)}/>
-                <Button type="submit">Submit</Button>
+                    <Form.Label>Enter vehicle VIN:</Form.Label>
+                    <Form.Control type="text" placeholder="ie. 5YM13EC09R9T58718" onChange={(e) => setVin(e.target.value)}/>
+                    <Form.Label>Year:</Form.Label>
+                    <Form.Control type="text" placeholder="Enter year   (ie.1995)" onChange={(e) => setYear(e.target.value)}/>
+                    <Form.Label>Make:</Form.Label>
+                    <Form.Control type="text" placeholder="Enter make   (ie.Toyota)" onChange={(e) => setMake(e.target.value)}/>
+                    <Form.Label>Model:</Form.Label>
+                    <Form.Control type="text" placeholder="Enter mdoel  (ie.Tundra)" onChange={(e) => setModel(e.target.value)}/>
+                    <Button type="submit">Submit</Button>
                 </Form>
             ):(null)
             }
@@ -111,12 +111,19 @@ const UserPage = () => {
                 vehicles.map((car, idx) => (
                     <VehicleCard
                     key={idx}
+                    id={car['id']}
                     vin={car['vin']}
                     year={car['year']}
                     make={car['make']}
                     model={car['model']}
                     vehicleImage={car['image_url']}
+                    client_id={car['client_id']}
                     vehicles = {vehicles}
+                    setVin = {setVin}
+                    setYear = {setYear}
+                    setMake = {setMake}
+                    setModel = {setModel}
+                    setVehicleImage = {setVehicleImage}
                     />
                     
                 )

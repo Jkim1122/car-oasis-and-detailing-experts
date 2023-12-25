@@ -23,7 +23,7 @@ const DetailingPackagesPage = () => {
     return (
         <>
             <h1>Detailing Packages Page</h1>
-            <div >
+            <div className='detailing-packages'>
             {detailingPackages.map((pack, idx) => (
                 <DetailingPackageCard
                 key={idx}

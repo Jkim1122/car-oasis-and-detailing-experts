@@ -43,21 +43,6 @@ class Cart_manager(APIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
-
-    # def delete(self, request, cart_item_id):
-    #     # Get the Cart Item
-    #     try:
-    #         cart_item = Cart_item.objects.get(pk=cart_item_id, cart__client=request.user)
-    #         print(cart_item)
-    #         cart_item.delete()  # Remove the Cart_item from the cart (not from the database)
-    #         return Response({"message": "Cart item removed from the cart"}, status=HTTP_204_NO_CONTENT)
-    #     except Cart_item.DoesNotExist:
-    #         return Response({"error": f"Cart item with id {cart_item_id} not found"}, status=HTTP_404_NOT_FOUND)
-
-
 class Cart_item_quantity(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -68,27 +53,14 @@ class Cart_item_quantity(APIView):
         except Cart_item.DoesNotExist:
             return None
 
-    def post(self, request, cart_item_id):
-        cart_item = self.get_cart_item(cart_item_id, request.user)
-
-        if not cart_item:
-            return Response({"error": f"Cart item with id {cart_item_id} not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        # Increment quantity
-        cart_item.quantity += 1
-        cart_item.save()
-
-        # Serialize the updated Cart Item for the response
-        serializer = CartItemSerializer(cart_item)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def put(self, request, method, cart_item_id, *args, **kwargs):
-        # Validate the method argument
+        
+    def put(self, request, method, cart_item_id, *args, **kwargs): #chatgpt
+        # print(f"Method: {method}")
+        # print(f"Cart Item ID: {cart_item_id}")
         if method not in ['add', 'sub']:
             return Response({"error": "Invalid method argument. Use 'add' or 'sub'."}, status=status.HTTP_400_BAD_REQUEST)
 
-        cart_item = self.get_cart_item(cart_item_id, request.user)
-
+        cart_item = self.get_cart_item(cart_item_id, request.user.id)
         if not cart_item:
             return Response({"error": f"Cart item with id {cart_item_id} not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -105,8 +77,6 @@ class Cart_item_quantity(APIView):
                 return Response({"message": "Cart item deleted"}, status=status.HTTP_204_NO_CONTENT)
 
         cart_item.save()
-
-        # Serialize the updated Cart Item for the response
         serializer = CartItemSerializer(cart_item)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -116,10 +86,10 @@ class Delete_item(APIView):
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, cart_item_id):
-        # Get the Cart Item
+        # print(request.user.id)
         try:
             cart_item = Cart_item.objects.get(pk=cart_item_id, cart__client=request.user)
-            print(cart_item)
+            # print(cart_item)
             cart_item.delete()  # Remove the Cart_item from the cart (not from the database)
             return Response({"message": "Cart item removed from the cart"}, status=HTTP_204_NO_CONTENT)
         except Cart_item.DoesNotExist:
