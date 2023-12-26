@@ -41,30 +41,29 @@ function VehicleCard({id, vin, year, make, model, vehicleImage, client_id, setVi
   }
 
   const baseURL = "http://api.carmd.com/v3.0";
-    const authKey = 'Basic MmIxZmVjOTUtNDU5MS00MGFhLWE1ODAtNzE4NGQxNWExMTgx';
-    const partnerToken = '2ff2b016e10842d6933ffb664cd1d0b5';
+  const authKey = 'Basic MmIxZmVjOTUtNDU5MS00MGFhLWE1ODAtNzE4NGQxNWExMTgx';
+  const partnerToken = '2ff2b016e10842d6933ffb664cd1d0b5';
 
-    const headers = {
-        'content-type': 'application/json',
-        'authorization': authKey,
-        'partner-token': partnerToken,
-      };
+  const headers = {
+      'content-type': 'application/json',
+      'authorization': authKey,
+      'partner-token': partnerToken,
+    };
 
-    const getCarImage = async (vin) => {
-        try {
-            const response = await axios
-                .get(`${baseURL}/image?vin=${vin}`, {headers})
-            // console.log(response.data.data.image)
-            if (response.data.data.image == null){
-                console.log(response.data.data.image)
-            } else {
-                setVehicleImage(response.data.data.image)
-                return response.data.data.image
-            }
-        }
-        catch (error) {console.error('Error making CarMD API request:', error)}
-    }
-
+  const getCarImage = async (vin) => {
+      try {
+          const response = await axios
+              .get(`${baseURL}/image?vin=${vin}`, {headers})
+          // console.log(response.data.data.image)
+          if (response.data.data.image == null){
+              console.log(response.data.data.image)
+          } else {
+              setVehicleImage(response.data.data.image)
+              return response.data.data.image
+          }
+      }
+      catch (error) {console.error('Error making CarMD API request:', error)}
+  }
 
   const editVehicle = async(e) => {
     e.preventDefault();
@@ -80,7 +79,7 @@ function VehicleCard({id, vin, year, make, model, vehicleImage, client_id, setVi
     // console.log(`vehicleImage: ${vehicleImage}`)
     // console.log(`client_id: ${client_id}`)
 
-    console.log(car)
+    // console.log(car)
     const updatedVin = e.target.elements.vin.value;
     const updatedYear = e.target.elements.year.value;
     const updatedMake = e.target.elements.make.value;
@@ -104,6 +103,7 @@ function VehicleCard({id, vin, year, make, model, vehicleImage, client_id, setVi
   }
 
   // console.log(`bookingdate: ${parkingSpace}`)
+  // console.log('bookingdate:', JSON.stringify(parkingSpace, null, 2));
 
   return (
     <>
@@ -134,7 +134,7 @@ function VehicleCard({id, vin, year, make, model, vehicleImage, client_id, setVi
             </Button>
             <Button style={{ backgroundColor: '#E78F08'}} onClick={
               toggleForm} >
-              Edit(DO MORE FOR THIS)
+              Edit
             </Button> 
             <Button style={{ backgroundColor: '#dc3545' }} onClick={removeVehicle}>
               Remove Vehicle

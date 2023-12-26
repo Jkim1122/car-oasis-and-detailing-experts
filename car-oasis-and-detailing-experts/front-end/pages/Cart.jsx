@@ -12,7 +12,7 @@ const CartPage = () => {
       try {
         const response = await api.get('cart/');
         const cartData = response.data;
-        console.log(cartData)
+        // console.log(cartData)
         setCart(cartData)
         setCartItems(cartData.cart_items);
       } catch (error) {
@@ -29,8 +29,7 @@ const CartPage = () => {
       const response = await api.put(`cart/${method}/cart_item/${cartItemId}/`, {
         quantity: newQuantity,
       });
-        console.log(response.data)
-      // Update the item in cartItems state
+        // console.log(response.data)
         setCartItems((cartItems) =>
         cartItems.map((cart) =>
           cart.id === cartItemId?
@@ -57,8 +56,26 @@ const CartPage = () => {
       console.error('Error deleting item from cart:', error);
     }
   };
-console.log(cart)
-  return (
+
+// console.log(cart)
+  
+const handleCheckout = async (cart_id) => {
+    try {
+      const response = await api.delete('cart/checkout/')
+        console.log('Checkout successful:', response.data)
+
+        setCartItems([]);
+        setCart({ total_price: 0, cart_items: [] });
+    
+        // Redirect to a thank you page or display a success message
+        // navigate('/thank-you');
+      } catch (error) {
+        console.error('Error during checkout:', error);
+      // Handle errors, display error messages, etc.
+    }
+  }
+
+    return (
     <>
       <h1>Cart Page</h1>
       {cartItems.length > 0 ? (
@@ -66,8 +83,8 @@ console.log(cart)
           {cartItems.map((cart) => (
             <Card key={cart.item.id} style={{ marginBottom: '20px' }}>
               <Card.Body>
-                <h3>name: {cart.item.name}</h3>
-                <h3>cart_item id: {cart.item.id}</h3>
+                <h3>Item id: {cart.item.id}</h3>
+                <h3>Name: {cart.item.name}</h3>
                 <p>Price: ${cart.item.price}.00</p>
                 <div>
                   <Button
@@ -90,6 +107,9 @@ console.log(cart)
           ))}
           <h3>Total:    ${cart.total_price}.00</h3>
           {/* Add a checkout button or additional details as needed */}
+            <Button variant='success' onClick={handleCheckout}>
+          Checkout
+            </Button>
         </div>
       ) : (
           <p>Your cart is empty.</p>

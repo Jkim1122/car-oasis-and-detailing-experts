@@ -19,13 +19,6 @@ class Parking_space_manager(APIView):
         serializer = Parking_spaceSerializer(parking_spaces, many=True)
         return Response(serializer.data)
 
-    # def post(self, request):
-    #     print(request.data)
-    #     serializer = Parking_spaceSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     def post(self, request):
         serializer = Parking_spaceSerializer(data=request.data)
         # print(serializer)

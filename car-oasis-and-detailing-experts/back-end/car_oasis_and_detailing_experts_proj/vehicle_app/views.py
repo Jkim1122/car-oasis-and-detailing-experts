@@ -20,11 +20,7 @@ class All_vehicles(APIView):
 class Vehicle_manager(APIView):
     def post(self, request):
         # vehicle = request.user.vehicle
-        print(request.data)
-        # vin = request.data['vin']
-        # year = request.data['vin']
-        # vin = request.data['vin']
-        # vin = request.data['vin']
+        # print(request.data)
         vehicle = Vehicle.objects.create(
                                          vin=request.data['vin'],
                                          year=request.data['year'],
@@ -84,8 +80,7 @@ class Delete_vehicle(APIView):
     def delete(self, request, id):
         try:
             vehicle = Vehicle.objects.get(pk=id)
-            # vehicle = get_object_or_404(Vehicle, pk=id)
-            print(vehicle)
+            # print(vehicle)
             vehicle.delete()
             return Response({"message": "Vehicle was removed from client's vehicle list"}, status=HTTP_204_NO_CONTENT)
         except Vehicle.DoesNotExist:

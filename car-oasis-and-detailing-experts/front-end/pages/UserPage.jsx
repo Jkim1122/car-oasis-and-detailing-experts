@@ -48,7 +48,7 @@ const UserPage = () => {
     
     const toggleForm = () => {
         setIsFormOpen(!isFormOpen);
-        console.log(isFormOpen)
+        // console.log(isFormOpen)
       };
 
     const handleSubmit = async(e) => {
@@ -81,15 +81,26 @@ const UserPage = () => {
         // console.log(vehicles)
     }, [vehicles])
 
+    // console.log(client)
+
     return (
         <>
-            <h1>User Page</h1>
-            {/* <h1>{client}</h1> */}
+        <div className='headers'>
+
+            <h1 >User Page</h1>
+            <Card className='client-card'>
+                <h2>Welcome, {client.client}!</h2>
+                {/* <h3>Client ID: {client.id}</h3>
+                <h3>Name: {client.full_name}</h3>
+                <h3>Email: {client.email}</h3>
+                <h3>Number: {client.number}</h3> */}
+            </Card>
+                <h3>current vehicles:{vehicles.length}</h3>
+        </div>
             <button
             onClick={toggleForm}
             >Add Vehicle</button>
 
-            <h3>current vehicles:{vehicles.length}</h3>
 
             {isFormOpen ?(
                 <Form className='enterVin' onSubmit={handleSubmit}>

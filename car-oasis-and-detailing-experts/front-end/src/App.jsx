@@ -12,6 +12,7 @@ function App() {
   const [cartItems, setCartItems] = useState([])
   const [cart, setCart] = useState([])
   const [parkingSpace, setParkingSpace] = useState('')
+  const [bookingDate, setBookingDate] = useState('')
   
 
   const getInfo = async() => {
@@ -55,7 +56,7 @@ const getDetailingPackages = async() => {
         <div>
           <Navbar client={client} setClient={setClient}/>
         </div>
-        <Outlet context={{client, setClient, vehicles, setVehicles, detailingPackages, setDetailingPackages, cartItems, setCartItems, cart, setCart, parkingSpace, setParkingSpace}}/>
+        <Outlet context={{client, setClient, vehicles, setVehicles, detailingPackages, setDetailingPackages, cartItems, setCartItems, cart, setCart, parkingSpace, setParkingSpace, bookingDate, setBookingDate}}/>
       </Container>
     </>
   )

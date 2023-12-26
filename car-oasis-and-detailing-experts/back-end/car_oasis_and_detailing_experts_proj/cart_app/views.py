@@ -80,7 +80,6 @@ class Cart_item_quantity(APIView):
         serializer = CartItemSerializer(cart_item)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-# class Delete_item(APIView):
 class Delete_item(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -94,3 +93,14 @@ class Delete_item(APIView):
             return Response({"message": "Cart item removed from the cart"}, status=HTTP_204_NO_CONTENT)
         except Cart_item.DoesNotExist:
             return Response({"error": f"Cart item with id {cart_item_id} not found"}, status=HTTP_404_NOT_FOUND)
+
+class Checkout(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        cart = request.user.cart
+        serializer = CartSerializer(cart)
+        print(serializer.data)
+        cart.cart_items.all().delete()
+        return Response({"message": "Checkout successful. Cart cleared."}, status=status.HTTP_200_OK)

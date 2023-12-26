@@ -80,6 +80,7 @@ button:focus-visible {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  border: .2rem solid black;
   border-radius: 20px;
 }
 .signup, .login {
@@ -88,32 +89,72 @@ button:focus-visible {
   flex-direction: column;
   /* justify-content: space-around; */
   align-items:flex-start;
+  
 }
 .enterVin {
   display:flex;
   flex-direction: column;
-  /* justify-content: space-around; */
+  padding: 1rem;
+  background-color: #161c20ce;
+  border: .2rem solid black;
+  justify-content:space-around;
   align-items:flex-start;
+  border-radius: 20px;
+  width: 15rem;
 }
 
-.Navbar {
+/* .Navbar {
   background-color: #161c20ce;
   display:flex;
   align-items: center;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border: 1px solid black;
+  border: .2rem solid black;
   width: 100vmin;
   height: 135px;
 
+} */
+.Navbar {
+  background-color: #161c20ce;
+  display: flex;
+  align-items: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border: .2rem solid black;
+  width: 100%; /* Full width by default */
+  height: 135px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
-.navLinks, .detailing-packages {
+.Navbar img {
+  max-width: 100%;
+  height: auto;
+  margin-right: 20px;
+}
+
+@media (max-width: 768px) {
+  .Navbar {
+    height: 80px; /* Adjust height for smaller screens */
+  }
+
+  .Navbar img {
+    margin-right: 10px;
+  }
+}
+
+
+.navLinks {
   display:flex;
   flex-direction: row;
 }
 
 .navLogo {
   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5nomFoIWIhhf7Ksad0kP6s_h8j6FJqjJc9w&usqp=CAU');
+  border-radius: 2rem;
+  padding: .3rem;
 }
 
 .vehicle-card {
@@ -132,6 +173,7 @@ button:focus-visible {
   width: 330px;
   height: 180px;
   border-radius: 15px;
+  border: 1rem black;
 }
 
 .detailing-package-card {
@@ -154,6 +196,7 @@ button:focus-visible {
 
 .booking-card, .contact-card, .ol,.cart-contents {
   background-color: #161c20ce;
+  border: .2rem solid black;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -172,6 +215,17 @@ button:focus-visible {
 .buttons {
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   align-items: center;
+}
+
+.client-card {
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  background-color: #161c20ce;
+  border: .2rem solid black;
+  width: 20rem;
+  height: 15rem;
+  border-radius: 20px;
 }

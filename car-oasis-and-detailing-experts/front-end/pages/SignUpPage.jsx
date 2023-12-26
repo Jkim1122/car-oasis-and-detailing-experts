@@ -17,7 +17,6 @@ const SignUpPage = () => {
 //signup
     const handleSignUp = async(e) => {
         e.preventDefault()
-        // console.log('button pressed')
         const data = {email, password, full_name, number}
         const response = await api
             .post("users/signup/", data)
@@ -26,12 +25,9 @@ const SignUpPage = () => {
         const token = response.data.token
         alert("sign up success")
         console.log(`Sign up success, email: ${clientEmail}, token: ${token}`)
-
         api.defaults.headers.common["Authorization"] = `Token ${token}`
         localStorage.setItem("token", token);
         localStorage.setItem("email", clientEmail);
-
-        // Goto homepage after successful signup
         navigate("/signup")
     }   
     

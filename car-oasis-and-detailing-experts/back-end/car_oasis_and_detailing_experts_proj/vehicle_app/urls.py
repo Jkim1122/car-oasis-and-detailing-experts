@@ -6,6 +6,6 @@ urlpatterns = [
     path("add_vehicle/", Vehicle_manager.as_view(), name='vehicle_manager'),
     path("update_vehicle/<int:id>/", Vehicle_manager.as_view(), name='update_vehicle'),
     path("delete_vehicle/<int:id>/", Delete_vehicle.as_view(), name='delete_vehicle'),
-    # path("login/", Log_in.as_view(), name='login'),
+    
     # path("logout/", Log_out.as_view(), name='logout'),
 ]
