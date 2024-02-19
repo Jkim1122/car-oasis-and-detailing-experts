@@ -89,7 +89,8 @@ const UserPage = () => {
 
             <h1 >User Page</h1>
             <Card className='client-card'>
-                <h2>Welcome, {client.client}!</h2>
+                {/* <h2>Welcome, {client.client}!</h2> */}
+                <h2>Welcome, {client.full_name}!</h2>
                 {/* <h3>Client ID: {client.id}</h3>
                 <h3>Name: {client.full_name}</h3>
                 <h3>Email: {client.email}</h3>
