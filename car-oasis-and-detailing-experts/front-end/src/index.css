@@ -1,5 +1,9 @@
 :root {
-  background-image: url('https://lh3.googleusercontent.com/0oeswMpDnmdW1109Z6OU6GVmeiUDLUDPo6hdZK-Bh-OOYMDtN_FZ4qL-r6L7_bhpjB6t5GdoCbNDXbmJ3cbn6w11-iYji0ZNFhKkH1nBbZS-MOX9AwyM8Gs9AzHFpleK1B22AUdd');
+  background-image: url("./assets/car-storage-warehouse.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  height: 100%;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -27,7 +31,6 @@ a:hover {
 
 body {
   background-color: #161c2089;
-  /* background-image: url('https://lh3.googleusercontent.com/0oeswMpDnmdW1109Z6OU6GVmeiUDLUDPo6hdZK-Bh-OOYMDtN_FZ4qL-r6L7_bhpjB6t5GdoCbNDXbmJ3cbn6w11-iYji0ZNFhKkH1nBbZS-MOX9AwyM8Gs9AzHFpleK1B22AUdd'); */
   margin: 0;
   display: flex;
   place-items: center;
@@ -103,17 +106,6 @@ button:focus-visible {
   width: 15rem;
 }
 
-/* .Navbar {
-  background-color: #161c20ce;
-  display:flex;
-  align-items: center;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  border: 1px solid black;
-  border: .2rem solid black;
-  width: 100vmin;
-  height: 135px;
-
-} */
 .Navbar {
   background-color: #161c20ce;
   display: flex;

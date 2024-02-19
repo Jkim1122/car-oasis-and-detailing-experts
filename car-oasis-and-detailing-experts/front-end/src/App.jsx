@@ -62,4 +62,4 @@ const getDetailingPackages = async() => {
   )
 }
 
-export default App
+export default App;
