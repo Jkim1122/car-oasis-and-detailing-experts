@@ -8,6 +8,8 @@ import BookingPage from "../pages/BookingPage";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import { api } from "../src/utilities";
+import Nav from 'react-bootstrap/Nav';
+import Image from 'react-bootstrap/Image';
 
 export default function Navbar({client, setClient}) {
 // export default function Navbar({name, pokemon, favorites}) {
@@ -28,32 +30,40 @@ export default function Navbar({client, setClient}) {
 
   return (
     <>
-      <nav className="Navbar">
-        <div className="navLogo">
-          <h2>C.O.D.E.</h2>
-          <h3>Car Oasis & Detailing Experts</h3>
-        </div>
-        <div>
-
-        <div className="navLinks">
-            <Link to="/" > Home </Link>||
-            <Link to="/booking" > Booking </Link>||
+      <Nav variant="tabs" className="Navbar" defaultActiveKey="/home">
+        <Image className="NavImg" src="/car.jpg" />
+        {/* <div className="NavLinks"> */}
+          <Nav.Item>
+            ||<Link to="/" > Home </Link> ||
+          </Nav.Item>
+          <Nav.Item>
+            <Link to="/booking" > Booking </Link> ||
+          </Nav.Item>
+          <Nav.Item>
             <Link to="/detailingpackages" > Detailing Packages </Link>||
+          </Nav.Item>
+          <Nav.Item>
             <Link to="/user" > User Page </Link>||
+          </Nav.Item>
+          <Nav.Item>
             <Link to="/cart"> Cart </Link>||
-            <Link to="/signup" >Sign Up & Log In </Link>
-            {client?
+          </Nav.Item>
+          <Nav.Item>
+            <Link to="/signup" >Sign Up & Log In </Link>||
+          </Nav.Item>
+          <Nav.Item>
+            <Link to="/contact"> Contact Us </Link>||
+          </Nav.Item>
+          <Nav.Item>
+            <Link to="/about" > About </Link>||
+          </Nav.Item>
+          {client?
             <button onClick={handleLogOut}>Log Out</button>
             :
             null
-          }
-        </div>
-        <div className="navLinks">
-            <Link to="/contact"> Contact Us</Link>||
-            <Link to="/about" > About </Link> ||
-        </div>
-          </div>
-      </nav>
-            </>
+          } ||
+          {/* </div> */}
+      </Nav>
+    </>
   );
 }
